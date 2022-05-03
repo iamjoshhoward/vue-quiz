@@ -1,13 +1,6 @@
 <script setup>
 import QuizBoxContainer from './QuizBox/QuizBoxContainer.vue'
 
-defineProps({
-  msg: {
-    type: String,
-    required: true
-  }
-})
-
 </script>
 
 <template>

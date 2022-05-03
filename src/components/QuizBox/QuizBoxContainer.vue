@@ -20,26 +20,33 @@
               v-for="option in question.options"
               v-bind:key="option.id"
             >
-            <p>
-              <input for="option" class="radio" v-bind:key="option.id" :value="option.id" :name="option" type="radio" />
-              <!-- CREATE INPUT FOREACH OPTION IN QUESTION OPTIONS-->
+              <p>
+                <input
+                  for="option"
+                  class="radio"
+                  v-bind:key="option.id"
+                  :value="option.id"
+                  :name="option"
+                  type="radio"
+                />
+                <!-- CREATE INPUT FOREACH OPTION IN QUESTION OPTIONS-->
 
-              <label class="label" v-bind:key="option.id">{{
-                " " + option
-              }}</label>
-            </p>
+                <label class="label" v-bind:key="option.id">{{
+                  " " + option
+                }}</label>
+              </p>
               <!-- CREATE LABEL FOR EACH OPTION IN QUESTION OPTIONS-->
             </li>
           </div>
         </li>
       </ul>
       <input type="submit" value="Submit" />
-      <!--<p v-if="errors.length">
+      <p v-if="errors">
                 <b>Please correct the following error(s):</b>
                 <ul>
                 <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
                 </ul>
-            </p>-->
+            </p>
     </form>
   </div>
 </template>
@@ -52,13 +59,28 @@ export default {
   data() {
     return {
       questions: questionsData,
-      
+      el: "#app",
+      data: {
+        errors: [],
+      },
+      methods: {
+        checkForm: function (e) {
+          this.errors = [];
+
+          if (!this.option) {
+            this.errors.push("Name required.");
+          }
+
+          if (!this.errors) {
+            return true;
+          }
+
+          e.preventDefault();
+        },
+      },
     };
-    
   },
 };
-
-
 </script>
 
 
@@ -95,14 +117,14 @@ input[type="submit"]:hover {
 }
 
 ul {
-  list-style-type: none; 
-  padding: 0; 
-  margin: 0; 
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
   color: black;
 }
 
-p{
-    color: black;
+p {
+  color: black;
 }
 
 .questionBox {
@@ -111,10 +133,9 @@ p{
   margin-top: 10px;
   box-shadow: 3px 3px 3px gray;
   border-radius: 10px;
-  
 }
 
-.AnswerChoice{
-    margin-left: 20px;
+.AnswerChoice {
+  margin-left: 20px;
 }
 </style>
